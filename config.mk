@@ -1,5 +1,5 @@
-NAME = dwmstatus
 VERSION = 0.4.0
+NAME = dwmstatus
 
 # Customize below to fit your system
 
@@ -15,14 +15,9 @@ INCS = -I. -I/usr/include -I${X11INC}
 LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
 
 # flags
-CPPFLAGS = -DVERSION=\"${VERSION}\"
-CFLAGS = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
-LDFLAGS = -g ${LIBS}
-#LDFLAGS = -s ${LIBS}
-
-# Solaris
-#CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
-#LDFLAGS = ${LIBS}
+#CPPFLAGS = -DVERSION=\"${VERSION}\"
+CFLAGS = -g -std=c99 -pedantic -Wall -O0 -DVERSION=\"${VERSION}\" ${INCS}
+LDFLAGS = -s ${LIBS}
 
 # compiler and linker
 #CC = clang

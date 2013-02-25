@@ -5,7 +5,6 @@ include config.mk
 SRC = ${NAME}.c
 OBJ = ${SRC:.c=.o}
 DOC = ${NAME}.1
-CONF= config.h
 
 all: options ${NAME}
 
