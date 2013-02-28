@@ -1,4 +1,4 @@
-VERSION = 0.4.0
+VERSION = 0.5.0
 NAME = dwmstatus
 
 # Customize below to fit your system

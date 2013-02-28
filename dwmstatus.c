@@ -55,7 +55,7 @@ status(int tostatusbar)
             avgs   = loadavg();
             temp   = gettemperature(TEMP_SENSOR_PATH, TEMP_SENSOR_UNIT);
             batt   = getbattery(BATT_PATH);
-            if(!temp) free(temp);
+            SFREE(temp);
         }
         /* Update every second */
         net    = get_netusage(net_device_up);
@@ -64,7 +64,7 @@ status(int tostatusbar)
         /* Format of display */
         status = smprintf("%s (%s) | %s [%s] T %s | %s",
                 net, ipaddr, batt, avgs, temp, time);
-        if(!ipaddr) free(ipaddr);
+        SFREE(ipaddr)
         free(net);
 
         if(tostatusbar == 0)

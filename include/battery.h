@@ -104,6 +104,6 @@ getbattery(char *base)
     else
         ret = smprintf("%s: %.2lf%% %02d:%02d:%02d", stat,
             (((double)remcap / (double)descap) * 100), hours, minutes, seconds);
-    if(!stat) { free(stat); }
+    SFREE(stat);
     return ret;
 }

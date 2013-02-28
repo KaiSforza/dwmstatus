@@ -3,6 +3,8 @@
 #include <sys/time.h>
 #include <time.h>
 
+#define SFREE(pointer) { if(!pointer) free(pointer); }
+
 static Display *dpy;
 
 /**
