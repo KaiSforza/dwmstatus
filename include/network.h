@@ -1,4 +1,4 @@
-/* 
+/*
  * NETWORK STUFF
  * TODO ip address display (need new func, not in net/dev)
  * TODO connection status (Put in ip address func?)
@@ -24,7 +24,7 @@ getnameinfo(const struct sockaddr *sa, socklen_t salen,
  * Used to parse the /proc/net/dev file to get the network useage.
  */
 
-int 
+int
 parse_netdev(unsigned long long int *receivedabs,
     unsigned long long int *sentabs, char *netdevice)
 {

@@ -17,7 +17,7 @@
 #include "include/network.h"
 #include "include/temp.h"
 
-/* 
+/*
  * setup the status bar here
  */
 int
