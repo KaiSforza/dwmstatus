@@ -124,7 +124,8 @@ get_netusage(char *netdevice)
 char *
 get_ip_addr(const char *interface)
 {
-    static char part[100];
+    static char part[64];
+    char *retstr = (char *) malloc(64);
     socklen_t len = sizeof(struct sockaddr_in);
     memset(part, 0, sizeof(part));
     struct ifaddrs *ifaddr, *addrp;
@@ -165,5 +166,6 @@ get_ip_addr(const char *interface)
             return NULL;
         }
     freeifaddrs(ifaddr);
-    return part;
+    strncpy(retstr, part, 64);
+    return retstr;
 }
