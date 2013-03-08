@@ -124,7 +124,7 @@ get_netusage(char *netdevice)
 char *
 get_ip_addr(const char *interface)
 {
-    static char part[512];
+    static char part[100];
     socklen_t len = sizeof(struct sockaddr_in);
     memset(part, 0, sizeof(part));
     struct ifaddrs *ifaddr, *addrp;
@@ -153,7 +153,7 @@ get_ip_addr(const char *interface)
 
         if (addrp == NULL) {
                 freeifaddrs(ifaddr);
-                return (found ? "no IP" : NULL);
+                return (found ? NULL : NULL);
             }
 
         int ret;
@@ -162,7 +162,7 @@ get_ip_addr(const char *interface)
             fprintf(stderr, "dwmstatus: getnameinfo(): %s\n",
                 gai_strerror(ret));
             freeifaddrs(ifaddr);
-            return "no IP";
+            return NULL;
         }
     freeifaddrs(ifaddr);
     return part;

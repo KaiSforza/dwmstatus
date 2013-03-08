@@ -11,8 +11,8 @@
  * systemd has some new naming conventions you can turn on with longer names.
  */
 #define NET_DEVICE_PRIMARY "wlp3s0"
-/* Currently not of any use 
-#define NET_DEVICE_SECONDARY "enp0s25" */
+/* Currently not of any use */
+#define NET_DEVICE_SECONDARY "enp0s25"
 
 /* Specity path to your battery */
 #define BATT_PATH "/sys/class/power_supply/BAT0"

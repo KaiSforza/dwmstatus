@@ -28,9 +28,18 @@ status(int tostatusbar)
     char *time = NULL;
     char *batt = NULL;
     char *net = NULL;
+    char *net_sec = NULL;
     char *temp = NULL;
     char *ipaddr = NULL;
+    char *ipaddr_sec = NULL;
+
+#ifdef NET_DEVICE_PRIMARY
     char *net_device_up = NET_DEVICE_PRIMARY;
+#endif
+#ifdef NET_DEVICE_SECONDARY
+    char *net_device_sec = NET_DEVICE_SECONDARY;
+#endif
+
     time_t count60 = 0;
     time_t count10 = 0;
 
@@ -48,24 +57,44 @@ status(int tostatusbar)
         }
         /* Update every 10 seconds */
         if (runevery(&count10, 10)) {
+#ifdef BATT_PATH
+            free(batt);
+            batt = getbattery(BATT_PATH);
+#endif
+#ifdef TEMP_SENSOR_PATH
+#ifdef TEMP_SENSOR_UNIT
             free(avgs);
             free(temp);
-            free(batt);
 
             avgs   = loadavg();
             temp   = gettemperature(TEMP_SENSOR_PATH, TEMP_SENSOR_UNIT);
-            batt   = getbattery(BATT_PATH);
             SFREE(temp);
+#endif
+#endif
         }
         /* Update every second */
+#ifdef NET_DEVICE_PRIMARY
         net    = get_netusage(net_device_up);
         ipaddr = get_ip_addr(net_device_up);
+#endif
+#ifdef NET_DEVICE_SECONDARY
+        net_sec = get_netusage(net_device_sec);
+        ipaddr_sec = get_ip_addr(net_device_sec);
+#endif
 
         /* Format of display */
-        status = smprintf("%s (%s) | %s [%s] T %s | %s",
-                net, ipaddr, batt, avgs, temp, time);
+        status = smprintf("%s%s%s%s%s%s",
+            ipaddr      == NULL ? "" : smprintf(" %s (%s) |", net, ipaddr),
+            ipaddr_sec  == NULL ? "" : smprintf(" %s (%s) |", net_sec, ipaddr_sec),
+            batt        == NULL ? "" : smprintf(" %s", batt),
+            avgs        == NULL ? "" : smprintf(" [%s]", avgs),
+            time        == NULL ? "" : smprintf(" %s", temp),
+            time        == NULL ? "" : smprintf(" | %s", time)
+            );
         SFREE(ipaddr)
         free(net);
+        SFREE(ipaddr_sec)
+        free(net_sec);
 
         if(tostatusbar == 0)
             setstatus(status);
